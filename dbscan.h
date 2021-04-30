@@ -32,7 +32,7 @@ public:
     int run();
     vector<int> calculateCluster(Point point);
     int expandCluster(Point point, int clusterID);
-    inline double calculateDistance(Point pointCore, Point pointTarget);
+    inline double calculateDistance(const Point& pointCore, const Point& pointTarget);
 
     int getTotalPointSize() {return m_pointSize;}
     int getMinimumClusterSize() {return m_minPoints;}
