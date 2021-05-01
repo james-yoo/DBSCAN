@@ -84,7 +84,7 @@ vector<int> DBSCAN::calculateCluster(Point point)
     return clusterIndex;
 }
 
-inline double DBSCAN::calculateDistance( Point pointCore, Point pointTarget )
+inline double DBSCAN::calculateDistance(const Point& pointCore, const Point& pointTarget )
 {
     return pow(pointCore.x - pointTarget.x,2)+pow(pointCore.y - pointTarget.y,2)+pow(pointCore.z - pointTarget.z,2);
 }
