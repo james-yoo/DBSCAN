@@ -6,7 +6,12 @@ You can test this DBSCAN algorithm with example code(main.cpp) & sample data(ben
   
 # Results
 Clustering performance was tesed via clustering-benchmark dataset and real-world dataset.  
-  
+
+# Build
+```
+$ g++ main.cpp dbscan.cpp -0 dbscan
+```
+
 ## benchmark dataset  
 Artificial dataset was used to test clustering algorithm which can be obtained [here](https://github.com/deric/clustering-benchmark). Following parameters were used:  
 1. Minimum number of points: 4
