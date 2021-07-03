@@ -9,7 +9,7 @@ Clustering performance was tesed via clustering-benchmark dataset and real-world
 
 # Build
 ```
-$ g++ main.cpp dbscan.cpp -0 dbscan
+$ g++ main.cpp dbscan.cpp -o dbscan
 ```
 
 ## benchmark dataset  
