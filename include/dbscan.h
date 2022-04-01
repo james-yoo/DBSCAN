@@ -1,7 +1,7 @@
 #ifndef DBSCAN_H
 #define DBSCAN_H
 
-#include <cmath>
+#include <utility>
 #include <vector>
 
 #define UNCLASSIFIED -1
@@ -16,7 +16,16 @@ using namespace std;
 typedef struct Point_ {
   float x, y, z;  // X, Y, Z position
   int clusterID;  // clustered ID
+  Point_(const float& _x, const float& _y, const float& _z, const int& _c)
+      : x(_x), y(_y), z(_z), clusterID(_c) {}
+
+  friend ostream& operator<<(std::ostream& os, const Point_& p) {
+    return os << "(" << p.x << ", " << p.y << ", " << p.z << ") - "
+              << p.clusterID;
+  }
 } Point;
+
+using coords = std::pair<float, float>;
 
 class DBSCAN {
  public:
