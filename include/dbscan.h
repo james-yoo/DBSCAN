@@ -1,6 +1,7 @@
 #ifndef DBSCAN_H
 #define DBSCAN_H
 
+#include <iostream>
 #include <utility>
 #include <vector>
 

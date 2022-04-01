@@ -1,10 +1,9 @@
+#include <dbscan.h>
 #include <stdio.h>
 
 #include <fstream>
 #include <iostream>
 #include <vector>
-
-#include "include/dbscan.h"
 #define MINIMUM_POINTS 4       // minimum number of cluster
 #define EPSILON (0.75 * 0.75)  // distance for clustering, metre^2
 

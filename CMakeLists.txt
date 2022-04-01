@@ -19,5 +19,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         PRIVATE src)
 
 
-add_executable(example main.cpp)
+add_executable(example example/simpleExample.cpp)
 target_link_libraries(example PRIVATE dbscan)
