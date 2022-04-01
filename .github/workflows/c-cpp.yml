@@ -13,11 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - uses: egor-tensin/setup-gcc@v1
+      with:
+        version: 10
+        platform: x64
+    - name: Configure
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config Release --target all -- -j 14
+  

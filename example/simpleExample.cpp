@@ -14,13 +14,12 @@ std::vector<Point> readBenchmarkData() {
   stream = fopen("benchmark_hepta.dat", "ra");
 
   unsigned int minpts, num_points, cluster, i = 0;
-  double epsilon;
   fscanf(stream, "%u\n", &num_points);
 
   Point *p = (Point *)calloc(num_points, sizeof(Point));
 
   while (i < num_points) {
-    fscanf(stream, "%f,%f,%f,%d\n", &(p[i].x), &(p[i].y), &(p[i].z), &cluster);
+    fscanf(stream, "%f,%f,%d\n", &(p[i].x), &(p[i].y), &cluster);
     p[i].clusterID = UNCLASSIFIED;
     points.push_back(p[i]);
     ++i;
@@ -34,11 +33,10 @@ std::vector<Point> readBenchmarkData() {
 void printResults(const vector<Point> &points, int num_points) {
   int i = 0;
   std::cout << "Number of Points: " << num_points << std::endl;
-  std::cout << "x\t\t\ty\t\t\tz\t\t\t" << std::endl;
+  std::cout << "x\t\t\ty\t\t\t" << std::endl;
 
   while (i < num_points) {
-    printf("%5.2lf %5.2lf %5.2lf: %d\n", points[i].x, points[i].y, points[i].z,
-           points[i].clusterID);
+    std::cout << points[i] << std::endl;
     ++i;
   }
 }

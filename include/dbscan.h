@@ -15,18 +15,15 @@
 using namespace std;
 
 typedef struct Point_ {
-  float x, y, z;  // X, Y, Z position
+  float x, y;     // X, Y position
   int clusterID;  // clustered ID
-  Point_(const float& _x, const float& _y, const float& _z, const int& _c)
-      : x(_x), y(_y), z(_z), clusterID(_c) {}
+  Point_(const float& _x, const float& _y, const int& _c)
+      : x(_x), y(_y), clusterID(_c) {}
 
   friend ostream& operator<<(std::ostream& os, const Point_& p) {
-    return os << "(" << p.x << ", " << p.y << ", " << p.z << ") - "
-              << p.clusterID;
+    return os << "(" << p.x << ", " << p.y << ") - " << p.clusterID;
   }
 } Point;
-
-using coords = std::pair<float, float>;
 
 class DBSCAN {
  public:
@@ -85,8 +82,7 @@ int DBSCAN::expandCluster(Point point, int clusterID) {
          ++iterSeeds) {
       m_points.at(*iterSeeds).clusterID = clusterID;
       if (m_points.at(*iterSeeds).x == point.x &&
-          m_points.at(*iterSeeds).y == point.y &&
-          m_points.at(*iterSeeds).z == point.z) {
+          m_points.at(*iterSeeds).y == point.y) {
         indexCorePoint = index;
       }
       ++index;
@@ -148,8 +144,7 @@ vector<int> DBSCAN::calculateCluster(Point point) {
 inline double DBSCAN::calculateDistance(const Point& pointCore,
                                         const Point& pointTarget) {
   return ((pointCore.x - pointTarget.x) * (pointCore.x - pointTarget.x)) +
-         ((pointCore.y - pointTarget.y) * (pointCore.y - pointTarget.y)) +
-         ((pointCore.z - pointTarget.z) * (pointCore.z - pointTarget.z));
+         ((pointCore.y - pointTarget.y) * (pointCore.y - pointTarget.y));
 }
 
 #endif  // DBSCAN_H
