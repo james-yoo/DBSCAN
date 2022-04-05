@@ -21,11 +21,15 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER include/dbscan.h)
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 configure_file(dbscan.pc.in dbscan.pc @ONLY)
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Config
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         )
 install(FILES ${CMAKE_BINARY_DIR}/dbscan.pc
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig
         )
 
+install(EXPORT ${PROJECT_NAME}Config DESTINATION share/${PROJECT_NAME}/cmake)
+export(TARGETS ${PROJECT_NAME} FILE ${PROJECT_NAME}.cmake)
