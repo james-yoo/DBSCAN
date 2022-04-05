@@ -14,12 +14,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -lstdc++fs -O3 -ffast-math -W
 
 
 add_library(${PROJECT_NAME} SHARED src/dbscan/dbscan.cpp)
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} LINKER_LANGUAGE CXX)
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 1)
-set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER include/dbscan.h)
-target_include_directories(${PROJECT_NAME} PRIVATE include)
-target_include_directories(${PROJECT_NAME} PRIVATE src)
+target_include_directories(${PROJECT_NAME} PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/dbscan>
+        $<INSTALL_INTERFACE:include/dbscan>
+        PRIVATE src)
+
 configure_file(dbscan.pc.in dbscan.pc @ONLY)
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Config
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

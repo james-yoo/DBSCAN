@@ -9,7 +9,7 @@
  *
  */
 
-#include <dbscan/dbscan.h>
+#include "dbscan.h"
 
 DBSCAN::DBSCAN(const unsigned int& minPts, const float& eps,
                const vector<Point>& points)
