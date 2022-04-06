@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "makefile_algorithm": "makefile",
+        "makefile_migration_selector": "makefile",
+        "makefile_problem": "makefile",
+        "makefile_migration_selectors": "makefile",
+        "makefile_mutation": "makefile",
+        "makefile_crossover": "makefile",
+        "*.am": "makefile",
+        "makefile_score": "makefile",
+        "makefile_exchange_selector": "makefile",
+        "makefile_init_pop_island_loader": "makefile",
+        "makefile_localSearch": "makefile",
+        "makefile_multiobjectivization": "makefile",
+        "makefile_decomposition": "makefile",
+        "makefile_output_printer": "makefile",
+        "makefile_migration_topology": "makefile",
+        "*.tcc": "cpp",
+        "fstream": "cpp"
+    }
+}

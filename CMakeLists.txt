@@ -34,3 +34,7 @@ install(FILES ${CMAKE_BINARY_DIR}/dbscan.pc
 
 install(EXPORT ${PROJECT_NAME}Config DESTINATION share/${PROJECT_NAME}/cmake)
 export(TARGETS ${PROJECT_NAME} FILE ${PROJECT_NAME}.cmake)
+
+
+add_executable(example example/simpleExample.cpp)
+target_link_libraries(example PRIVATE ${PROJECT_NAME})

@@ -37,18 +37,18 @@ class DBSCAN {
     inline double calculateDistance(const Point& pointCore,
                                     const Point& pointTarget);
 
-    int getTotalPointSize() { return pointSize; }
-    int getMinimumClusterSize() { return minPoints; }
-    int getEpsilonSize() { return eps; }
-    const vector<Point>& getPoints() { return points; }
-    const unsigned int getNClusters() const { return nClusters; }
+    int getTotalPointSize() { return m_pointSize; }
+    int getMinimumClusterSize() { return m_minPoints; }
+    int getEpsilonSize() { return m_epsilon; }
+    const vector<Point>& getPoints() { return m_points; }
+    const unsigned int getNClusters() { return nClusters; }
 
    private:
     unsigned int nClusters;
-    unsigned int minPoints;
-    float eps;
-    unsigned int pointSize;
-    vector<Point> points;
+    unsigned int m_minPoints;
+    float m_epsilon;
+    unsigned int m_pointSize;
+    vector<Point> m_points;
 };
 
 #endif  // DBSCAN_H
