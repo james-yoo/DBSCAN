@@ -30,7 +30,7 @@ int DBSCAN::run() {
         std::cout << *iter << std::endl;
     }
     this->nClusters = clusterID;
-    return 0;
+    return nClusters;
 }
 
 int DBSCAN::expandCluster(Point point, int clusterID) {
