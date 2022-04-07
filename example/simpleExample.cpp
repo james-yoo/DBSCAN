@@ -14,7 +14,7 @@ std::vector<Point> readBenchmarkData(const std::string &filename) {
     std::ifstream input;
     input.open(filename.c_str());
     if (input.is_open()) {
-        unsigned int minpts, num_points, cluster, i = 0;
+        unsigned int num_points, cluster, i = 0;
         input >> num_points;
         float x, y;
         while (i < num_points) {
@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
     // constructor
     DBSCAN ds(MINIMUM_POINTS, EPSILON, points);
     // main loop
-    auto nClusters = ds.run();
+    ds.run();
     std::cout << "Number of clusters: " << ds.getNClusters() << std::endl;
     // result of DBSCAN algorithm
     // printResults(ds.getPoints(), ds.getTotalPointSize());

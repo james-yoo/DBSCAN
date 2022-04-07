@@ -11,11 +11,35 @@
 
 #include "dbscan.h"
 
+/**
+ * @brief Construct a new DBSCAN::DBSCAN object
+ *
+ * @param minPts
+ * @param eps
+ * @param points
+ */
 DBSCAN::DBSCAN(const unsigned int& minPts, const float& eps,
                const vector<Point>& points)
     : nClusters(0), m_minPoints(minPts), m_epsilon(eps) {
     m_pointSize = points.size();
     m_points = points;
+}
+
+/**
+ * @brief Construct a new DBSCAN::DBSCAN object
+ *
+ * @param minPts
+ * @param eps
+ * @param points
+ */
+DBSCAN::DBSCAN(const unsigned int& minPts, const float& eps,
+               const vector<coords>& coordinates)
+    : nClusters(0), m_minPoints(minPts), m_epsilon(eps) {
+    m_pointSize = coordinates.size();
+    m_points.reserve(m_pointSize);
+    for (auto& [x, y] : coordinates) {
+        m_points.push_back(Point(x, y, UNCLASSIFIED));
+    }
 }
 
 int DBSCAN::run() {

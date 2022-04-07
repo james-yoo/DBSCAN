@@ -14,6 +14,8 @@
 
 using namespace std;
 
+using coords = std::pair<float, float>;
+
 typedef struct Point_ {
     float x, y;     // X, Y position
     int clusterID;  // clustered ID
@@ -27,6 +29,9 @@ typedef struct Point_ {
 
 class DBSCAN {
    public:
+    DBSCAN() = delete;
+    DBSCAN(const unsigned int& minPts, const float& eps,
+           const vector<coords>& coordinates);
     DBSCAN(const unsigned int& minPts, const float& eps,
            const vector<Point>& points);
     ~DBSCAN() = default;
