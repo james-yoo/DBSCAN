@@ -5,6 +5,8 @@
 #include <utility>
 #include <vector>
 
+#include "cluster.h"
+
 #define UNCLASSIFIED -1
 #define CORE_POINT 1
 #define BORDER_POINT 2
@@ -47,6 +49,9 @@ class DBSCAN {
     int getEpsilonSize() { return m_epsilon; }
     const vector<Point>& getPoints() { return m_points; }
     const unsigned int getNClusters() { return nClusters; }
+    vector<Cluster> getClusters() const { return m_clusters; }
+
+    float radiusOfClusters();
 
    private:
     unsigned int nClusters;
@@ -54,6 +59,8 @@ class DBSCAN {
     float m_epsilon;
     unsigned int m_pointSize;
     vector<Point> m_points;
+
+    vector<Cluster> m_clusters;
 };
 
 #endif  // DBSCAN_H

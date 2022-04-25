@@ -42,8 +42,13 @@ DBSCAN::DBSCAN(const unsigned int& minPts, const float& eps,
     }
 }
 
+/**
+ * @brief Method to run the DBSCAN algorithm
+ *
+ * @return int
+ */
 int DBSCAN::run() {
-    int clusterID = 1;
+    int clusterID = 0;
     typename vector<Point>::iterator iter;
     for (iter = m_points.begin(); iter != m_points.end(); ++iter) {
         if (iter->clusterID == UNCLASSIFIED) {
@@ -51,12 +56,28 @@ int DBSCAN::run() {
                 clusterID += 1;
             }
         }
-        std::cout << *iter << std::endl;
     }
     this->nClusters = clusterID;
+    this->m_clusters.reserve(this->nClusters);
+    for (unsigned int i = 1; i <= this->nClusters; i++) {
+        m_clusters.push_back(Cluster(i));
+    }
+    // Filling the cluster
+    for (const Point& p : m_points) {
+        if (p.clusterID != UNCLASSIFIED) {
+            m_clusters[p.clusterID].addPoint({p.x, p.y});
+        }
+    }
     return nClusters;
 }
 
+/**
+ * @brief
+ *
+ * @param point
+ * @param clusterID
+ * @return int
+ */
 int DBSCAN::expandCluster(Point point, int clusterID) {
     vector<int> clusterSeeds = calculateCluster(point);
 
@@ -104,7 +125,7 @@ int DBSCAN::expandCluster(Point point, int clusterID) {
 }
 
 /**
- * @brief Calculates the clusters in the points
+ * @brief Calculates the cluster the point belongs to
  *
  * @param point
  * @return vector<int>
@@ -135,4 +156,19 @@ inline double DBSCAN::calculateDistance(const Point& pointCore,
                                         const Point& pointTarget) {
     return ((pointCore.x - pointTarget.x) * (pointCore.x - pointTarget.x)) +
            ((pointCore.y - pointTarget.y) * (pointCore.y - pointTarget.y));
+}
+
+/**
+ * @brief Computes the mean radius of the clusters in the points
+ *  It is defined as the mean distance from any city in a cluster to the cluster
+ * centroid, averaged over all clusters
+ * @return float
+ */
+float DBSCAN::radiusOfClusters() {
+    auto radius = 0.0f;
+    for (auto& c : m_clusters) {
+        auto cr = c.getRadius();
+        radius += cr;
+    }
+    return radius / m_clusters.size();
 }

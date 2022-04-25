@@ -8,9 +8,9 @@
 #define MINIMUM_POINTS 6  // minimum number of cluster
 #define EPSILON (2.0)     // distance for clustering, metre^2
 
-std::vector<Point> readBenchmarkData(const std::string &filename) {
+std::vector<coords> readBenchmarkData(const std::string &filename) {
     // load point cloud
-    std::vector<Point> points;
+    std::vector<coords> points;
     std::ifstream input;
     input.open(filename.c_str());
     if (input.is_open()) {
@@ -19,7 +19,7 @@ std::vector<Point> readBenchmarkData(const std::string &filename) {
         float x, y;
         while (i < num_points) {
             input >> x >> y >> cluster;
-            points.push_back(Point(x, y, UNCLASSIFIED));
+            points.push_back({x, y});
             ++i;
         }
         input.close();
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     }
     auto filename = argv[1];
     // read point data
-    std::vector<Point> points = readBenchmarkData(filename);
+    std::vector<coords> points = readBenchmarkData(filename);
     // constructor
     DBSCAN ds(MINIMUM_POINTS, EPSILON, points);
     // main loop
@@ -54,6 +54,11 @@ int main(int argc, char **argv) {
     std::cout << "Number of clusters: " << ds.getNClusters() << std::endl;
     // result of DBSCAN algorithm
     // printResults(ds.getPoints(), ds.getTotalPointSize());
-
+    auto clusters = ds.getClusters();
+    for (auto &c : clusters) {
+        c.update();
+        std::cout << c << std::endl;
+    }
+    std::cout << "Mean radius is: " << ds.radiusOfClusters() << std::endl;
     return 0;
 }
