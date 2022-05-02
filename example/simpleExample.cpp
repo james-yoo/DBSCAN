@@ -50,7 +50,8 @@ int main(int argc, char **argv) {
     // constructor
     DBSCAN ds(MINIMUM_POINTS, EPSILON, points);
     // main loop
-    ds.run();
+    auto nClusters = ds.run();
+    std::cout << "There are " << nClusters << " clusters " << std::endl;
     for (auto p : ds.getPoints()) {
         std::cout << p << std::endl;
     }

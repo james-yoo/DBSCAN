@@ -16,6 +16,9 @@
         "makefile_output_printer": "makefile",
         "makefile_migration_topology": "makefile",
         "*.tcc": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "vector": "cpp"
     }
 }

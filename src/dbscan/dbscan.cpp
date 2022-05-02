@@ -11,6 +11,8 @@
 
 #include "dbscan.h"
 
+#include <map>
+
 /**
  * @brief Construct a new DBSCAN::DBSCAN object
  *
@@ -43,7 +45,6 @@ DBSCAN::DBSCAN(const unsigned int& minPts, const float& eps,
         p.y = y;
         p.clusterID = UNCLASSIFIED;
         m_points.push_back(p);
-        std::cout << p << std::endl;
     }
 }
 
@@ -62,7 +63,26 @@ int DBSCAN::run() {
             }
         }
     }
-    return 0;
+    // Creating the clusters
+    std::map<int, vector<coords>> clusters;
+
+    for (unsigned int i = 1; i <= this->nClusters; i++) {
+        m_clusters.push_back(Cluster(i));
+    }
+    // Filling the cluster
+    for (const Point& p : m_points) {
+        if (p.clusterID != UNCLASSIFIED) {
+            if (clusters.find(p.clusterID) != clusters.end()) {
+                clusters.insert({p.clusterID, {}});
+            }
+            clusters[p.clusterID].push_back({p.x, p.y});
+        }
+    }
+    for (auto [id, points] : clusters) {
+        this->m_clusters.push_back(Cluster(id, points));
+    }
+    this->nClusters = clusters.size();
+    return nClusters;
 }
 
 /**
