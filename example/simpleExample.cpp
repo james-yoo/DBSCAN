@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "dbscan.h"
-#define MINIMUM_POINTS 6  // minimum number of cluster
-#define EPSILON (2.0)     // distance for clustering, metre^2
+#define MINIMUM_POINTS 2  // minimum number of cluster
+#define EPSILON (3.0)     // distance for clustering, metre^2
 
 std::vector<coords> readBenchmarkData(const std::string &filename) {
     // load point cloud
@@ -51,9 +51,9 @@ int main(int argc, char **argv) {
     DBSCAN ds(MINIMUM_POINTS, EPSILON, points);
     // main loop
     ds.run();
-    std::cout << "Number of clusters: " << ds.getNClusters() << std::endl;
-    // result of DBSCAN algorithm
-    // printResults(ds.getPoints(), ds.getTotalPointSize());
+    for (auto p : ds.getPoints()) {
+        std::cout << p << std::endl;
+    }
     auto clusters = ds.getClusters();
     for (auto &c : clusters) {
         c.update();

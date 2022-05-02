@@ -38,7 +38,12 @@ DBSCAN::DBSCAN(const unsigned int& minPts, const float& eps,
     m_pointSize = coordinates.size();
     m_points.reserve(m_pointSize);
     for (auto& [x, y] : coordinates) {
-        m_points.push_back(Point(x, y, UNCLASSIFIED));
+        Point p;
+        p.x = x;
+        p.y = y;
+        p.clusterID = UNCLASSIFIED;
+        m_points.push_back(p);
+        std::cout << p << std::endl;
     }
 }
 
@@ -48,8 +53,8 @@ DBSCAN::DBSCAN(const unsigned int& minPts, const float& eps,
  * @return int
  */
 int DBSCAN::run() {
-    int clusterID = 0;
-    typename vector<Point>::iterator iter;
+    int clusterID = 1;
+    vector<Point>::iterator iter;
     for (iter = m_points.begin(); iter != m_points.end(); ++iter) {
         if (iter->clusterID == UNCLASSIFIED) {
             if (expandCluster(*iter, clusterID) != FAILURE) {
@@ -57,18 +62,7 @@ int DBSCAN::run() {
             }
         }
     }
-    this->nClusters = clusterID;
-    this->m_clusters.reserve(this->nClusters);
-    for (unsigned int i = 1; i <= this->nClusters; i++) {
-        m_clusters.push_back(Cluster(i));
-    }
-    // Filling the cluster
-    for (const Point& p : m_points) {
-        if (p.clusterID != UNCLASSIFIED) {
-            m_clusters[p.clusterID].addPoint({p.x, p.y});
-        }
-    }
-    return nClusters;
+    return 0;
 }
 
 /**
@@ -133,7 +127,7 @@ int DBSCAN::expandCluster(Point point, int clusterID) {
 
 vector<int> DBSCAN::calculateCluster(Point point) {
     int index = 0;
-    typename vector<Point>::iterator iter;
+    vector<Point>::iterator iter;
     vector<int> clusterIndex;
     for (iter = m_points.begin(); iter != m_points.end(); ++iter) {
         if (calculateDistance(point, *iter) <= m_epsilon) {
