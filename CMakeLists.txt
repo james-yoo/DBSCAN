@@ -12,7 +12,6 @@ set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -lstdc++fs -O3 -ffast-math -Wall -march=native -mtune=native -fPIC")
 
-
 add_library(${PROJECT_NAME} SHARED src/dbscan/dbscan.cpp src/dbscan/cluster.cpp)
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} LINKER_LANGUAGE CXX)
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 1)
@@ -27,14 +26,12 @@ install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Config
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-        )
-install(FILES ${CMAKE_BINARY_DIR}/dbscan.pc
-        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig
-        )
+)
 
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(DIRECTORY lib/ DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(EXPORT ${PROJECT_NAME}Config DESTINATION share/${PROJECT_NAME}/cmake)
 export(TARGETS ${PROJECT_NAME} FILE ${PROJECT_NAME}.cmake)
-
 
 add_executable(example example/simpleExample.cpp)
 target_link_libraries(example PRIVATE ${PROJECT_NAME})
